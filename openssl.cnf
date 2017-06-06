@@ -1,0 +1,41 @@
+[ ca ]
+default_ca = CA_default
+prompt = no
+
+[ CA_default ]
+dir         = .
+certificate = $dir/ca.crt
+private_key = $dir/ca.key
+
+new_certs_dir = /tmp/
+database  = $dir/index.txt
+serial = $dir/serial
+
+copy_extensions = copy
+default_md   = sha256
+default_days = 7300
+policy = policy_anything
+
+[ policy_anything ]
+countryName   = optional
+stateOrProvinceName = optional
+localityName    = optional
+organizationName  = optional
+organizationalUnitName  = optional
+commonName    = supplied
+emailAddress    = optional
+
+[req]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_req
+req_extensions = v3_req
+prompt = no
+
+[req_distinguished_name]
+O = Pihvi
+OU = Self-signed by Pihvi local development
+
+[v3_req]
+keyUsage = keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName=$ENV::ALTNAME
