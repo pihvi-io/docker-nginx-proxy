@@ -34,12 +34,16 @@ WORKDIR /app/
 
 COPY nginx/ /etc/nginx/
 
-ENV DOCKER_HOST=unix:///tmp/docker.sock \
-    RANDFILE=/tmp/.rnd
+ENV DOCKER_HOST=unix:///tmp/docker.sock
 
 # Set some configurable variables
-ENV NGINX_PROXY_TIMEOUT=600 \
-	NGINX_MAX_UPLOAD=2G
+ENV \
+    # Allow bigger timeouts and max upload size to test uplouds through the proxy
+    NGINX_PROXY_TIMEOUT=600 \
+	NGINX_MAX_UPLOAD=2G \
+
+    # Default Host machine IP for linux machines, this needs to be overriden with MacOS
+    HOSTMACHINE_IP=172.17.42.1
 
 VOLUME ["/etc/nginx/certs"]
 
