@@ -84,7 +84,7 @@ server {
 	{{ end }}
 	access_log /dev/stderr vhost;
 
-	include ssl_settings.conf
+	include ssl_settings.conf;
 
 	location / {
 		{{ if eq $proto "uwsgi" }}
