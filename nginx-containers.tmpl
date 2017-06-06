@@ -17,8 +17,6 @@
         {{ end }}
 {{ end }}
 
-{{ end }}
-
 {{ $enable_ipv6 := eq (or ($.Env.ENABLE_IPV6) "") "true" }}
 server {
 	server_name _; # This is just an invalid value which will never trigger on a real hostname.
@@ -39,9 +37,7 @@ server {
 	access_log /dev/stderr vhost;
 	return 503;
 
-	ssl_session_tickets off;
-	ssl_certificate /etc/nginx/certs/default.crt;
-	ssl_certificate_key /etc/nginx/certs/default.key;
+	include ssl_settings.conf;
 }
 
 {{ range $host, $containers := groupByMulti $ "Env.VIRTUAL_HOST" "," }}
