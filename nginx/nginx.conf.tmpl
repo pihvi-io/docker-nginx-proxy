@@ -1,6 +1,9 @@
 daemon off;
 worker_processes  1;
 
+# Allow nginx to write to the certificates folder
+user root;
+
 # Write process id here
 pid /var/run/nginx.pid;
 
